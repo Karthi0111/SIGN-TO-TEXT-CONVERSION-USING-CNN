@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language to Text Conversion</title>
+    <style>
+        body { background: linear-gradient(to right, #333, #555); color: white; font-family: Arial, sans-serif; text-align: center; }
+        h1 { margin-top: 20px; }
+        .convert-btn { padding: 15px 30px; background-color: #4CAF50; color: white; border: none; cursor: pointer; font-size: 18px; }
+        .convert-btn:hover { background-color: #45a049; }
+        #result { margin-top: 20px; font-size: 24px; }
+        .lang-select { position: fixed; bottom: 10px; left: 10px; font-size: 16px; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Sign Language to Text Conversion</h1>
+    <button class="convert-btn" onclick="startConversion()">What sign do you need to convert?</button>
+    <p id="result"></p>
+
+    <div class="lang-select">
+        <label for="language">Select Language:</label>
+        <select id="language" onchange="setLanguage()">
+            <option value="en">English</option>
+            <option value="ta">Tamil</option>
+        </select>
+    </div>
+
+    <script>
+        async function startConversion() {
+            const response = await fetch('/convert', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('result').textContent = "Converted Text: " + data.result;
+        }
+
+        function setLanguage() {
+            const lang = document.getElementById('language').value;
+            if (lang === 'ta') {
+                document.title = 'சைகை மொழி - உரை மாற்றம்';
+                document.querySelector('h1').textContent = 'சைகை மொழி - உரை மாற்றம்';
+                document.querySelector('.convert-btn').textContent = 'எந்த சைகையை மாற்ற வேண்டும்?';
+            } else {
+                document.title = 'Sign Language to Text Conversion';
+                document.querySelector('h1').textContent = 'Sign Language to Text Conversion';
+                document.querySelector('.convert-btn').textContent = 'What sign do you need to convert?';
+            }
+        }
+    </script>
+</body>
+</html>

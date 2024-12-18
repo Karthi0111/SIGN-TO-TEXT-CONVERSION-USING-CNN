@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-zinc-900 to-zinc-800 min-h-screen text-white">
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+                Sign Language Translator
+            </h1>
+            <p class="text-zinc-400 text-lg" id="instructionText">
+                Click the button below to convert sign language to text
+            </p>
+            <div class="mt-4">
+                <button id="languageToggle" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors shadow-lg" onclick="toggleLanguage()">
+                    ENG | TAMIL
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-col items-center space-y-8">
+            <button onclick="startDetection()" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-semibold flex items-center space-x-2 transition-colors shadow-lg">
+                <span>Start Detection</span>
+            </button>
+            <div id="resultBox" class="bg-zinc-800 p-6 rounded-lg shadow-xl max-w-lg w-full hidden">
+                <h2 class="text-xl font-semibold text-white mb-2">Detected Text</h2>
+                <div class="bg-zinc-900 p-4 rounded-lg min-h-[100px] flex items-center justify-center">
+                    <p id="detectedText" class="text-2xl text-white"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentLanguage = 'en';
+
+        function toggleLanguage() {
+            if (currentLanguage === 'en') {
+                currentLanguage = 'ta';
+                document.getElementById('instructionText').textContent = 'கைகூச்சு மொழியை உரைக்கு மாற்ற கீழே உள்ள பொத்தானை அழுத்தவும்';
+                document.getElementById('detectedText').textContent = 'மொழிபெயர்க்கப்படவில்லை';
+            } else {
+                currentLanguage = 'en';
+                document.getElementById('instructionText').textContent = 'Click the button below to convert sign language to text';
+                document.getElementById('detectedText').textContent = 'Detection failed';
+            }
+        }
+
+        function startDetection() {
+            document.getElementById('resultBox').classList.remove('hidden');
+            fetch('/start_detection')  // Update to call your Flask endpoint
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('detectedText').textContent = data.detectedText;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('detectedText').textContent = 'Detection failed';
+                });
+        }
+    </script>
+</body>
+</html>

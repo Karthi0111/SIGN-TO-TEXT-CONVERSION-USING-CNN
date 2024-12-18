@@ -1,0 +1,66 @@
+/* style.css */
+
+/* Set the background color to a black-grey gradient */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, black, grey);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: white;
+}
+
+/* Title styling */
+.title {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+/* Centered content area for the button */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Convert button styling */
+#convert-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#convert-btn:hover {
+    background-color: #333;
+}
+
+/* Language toggle buttons at the bottom left */
+.language-toggle {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.language-toggle button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.language-toggle button:hover {
+    background-color: #666;
+}
